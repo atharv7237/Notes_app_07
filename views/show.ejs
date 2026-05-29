@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Read Note</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+
+  <body
+    class="min-h-screen bg-gradient-to-br from-pink-200 via-purple-200 to-fuchsia-300 flex items-center justify-center p-10"
+  >
+    <!-- Main Container -->
+    <div
+      class="w-full max-w-4xl bg-white/50 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/30 p-10"
+    >
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-5xl font-bold text-purple-900 tracking-tight">
+            <%= filename %>
+          </h1>
+
+          <p class="text-purple-700 mt-2 text-lg">
+            Your saved note ✨
+          </p>
+        </div>
+
+        <!-- Back Button -->
+        <a
+          href="/"
+          class="bg-gradient-to-r from-pink-400 to-fuchsia-500 text-white px-5 py-3 rounded-2xl shadow-lg hover:scale-[1.03] transition-all duration-300"
+        >
+          ← Back
+        </a>
+      </div>
+
+      <!-- Note Content -->
+      <div
+        class="bg-white/70 rounded-3xl p-8 shadow-inner border border-pink-100"
+      >
+        <h2 class="text-2xl font-semibold text-purple-900 mb-4">
+          Description
+        </h2>
+
+        <p
+          class="text-lg leading-8 text-purple-800 whitespace-pre-line"
+        >
+          <%= filedata %>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
