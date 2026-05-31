@@ -1,0 +1,221 @@
+Based on what you learned today, I would create notes on **4 topics**.
+
+# 1. Mongoose Schema
+
+### Definition
+
+A Schema is a blueprint or structure that defines what fields a document can have and what type of data each field stores.
+
+### Example
+
+```js
+const userSchema = mongoose.Schema({
+    name: String,
+    age: Number,
+    email: String
+})
+```
+
+### Purpose
+
+* Defines document structure
+* Ensures data consistency
+* Acts as a blueprint before creating a model
+
+### Real World Example
+
+```js
+User
+ ├── name
+ ├── age
+ └── email
+```
+
+Without schema:
+
+```js
+{
+   xyz: 10,
+   abc: true
+}
+```
+
+With schema:
+
+```js
+{
+   name: "Atharv",
+   age: 20,
+   email: "atharv@gmail.com"
+}
+```
+
+---
+
+# 2. Mongoose Model
+
+### Definition
+
+A Model is a JavaScript object created from a Schema that provides built-in methods to perform CRUD operations on a MongoDB collection.
+
+### Example
+
+```js
+const User = mongoose.model("User", userSchema)
+```
+
+### Purpose
+
+Model acts as a bridge between:
+
+```text
+Application
+      ↓
+    Model
+      ↓
+ MongoDB Collection
+```
+
+### Common Methods
+
+```js
+User.create()
+User.find()
+User.findOne()
+User.findById()
+User.findByIdAndDelete()
+User.findByIdAndUpdate()
+```
+
+### Important Point
+
+Schema defines structure.
+
+Model performs operations.
+
+```text
+Schema = Blueprint
+
+Model = Worker using the blueprint
+```
+
+---
+
+# 3. CRUD Operations using Mongoose
+
+### Create
+
+```js
+await User.create({
+    name: "Atharv",
+    email: "atharv@gmail.com"
+})
+```
+
+Creates a new document.
+
+---
+
+### Read
+
+```js
+await User.find()
+```
+
+Returns all documents.
+
+---
+
+### Find One
+
+```js
+await User.findOne({
+    name: "Atharv"
+})
+```
+
+Returns first matching document.
+
+---
+
+### Update
+
+```js
+await User.findByIdAndUpdate(id,{
+    name:"New Name"
+})
+```
+
+Updates existing document.
+
+---
+
+### Delete
+
+```js
+await User.findByIdAndDelete(id)
+```
+
+Deletes document.
+
+---
+
+# 4. User Management App Flow
+
+### Features
+
+* Create User
+* Show Users
+* Find User
+* Delete User
+
+### Flow
+
+```text
+User fills form
+        ↓
+POST request sent
+        ↓
+req.body receives data
+        ↓
+Model.create()
+        ↓
+MongoDB stores document
+        ↓
+User visits profiles page
+        ↓
+Model.find()
+        ↓
+Data fetched from database
+        ↓
+EJS receives users array
+        ↓
+Cards rendered dynamically
+```
+
+### Concepts Used
+
+* Express
+* Routing
+* Form Handling
+* req.body
+* MongoDB
+* Mongoose
+* Schema
+* Model
+* CRUD Operations
+* EJS Rendering
+
+---
+
+### Personal Learning Note
+
+```text
+Today I learned how MongoDB data is structured using Schemas and how Models provide built-in methods to perform CRUD operations.
+
+I built a User Management System that accepts name, email, and image URL from users and stores them in MongoDB. The application can create, display, search, and delete users.
+
+The most important achievement was rebuilding the project after understanding the concepts instead of blindly following the tutorial.
+```
+
+This would be a solid set of notes because it captures both the **theory (Schema/Model/CRUD)** and the **practical project** you completed today.
