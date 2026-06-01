@@ -31,7 +31,8 @@
         <input
           type="text"
           name="prev"
-          value="<%=filename%>"
+          value="<%= title %>"
+          disabled
           class="w-full px-5 py-4 rounded-2xl bg-white/70 border border-pink-200 outline-none focus:ring-4 focus:ring-pink-300 text-purple-900 placeholder-purple-400 text-lg"
         />
 
@@ -39,6 +40,15 @@
           type="text"
           name="new"
           placeholder="Enter New Name "
+          class="w-full px-5 py-4 rounded-2xl bg-white/70 border border-pink-200 outline-none focus:ring-4 focus:ring-pink-300 text-purple-900 placeholder-purple-400 text-lg"
+        />
+
+        <input
+          type="text"
+          name="id"
+          placeholder="Enter New Name "
+          value="<%=id%>"
+          hidden
           class="w-full px-5 py-4 rounded-2xl bg-white/70 border border-pink-200 outline-none focus:ring-4 focus:ring-pink-300 text-purple-900 placeholder-purple-400 text-lg"
         />
 

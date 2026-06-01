@@ -58,25 +58,25 @@
 
         <div class="flex flex-wrap gap-6">
           <!-- Card -->
-           <% if (files.length > 0){ %>
-           <% files.forEach((file) => { %>
+           <% if (Notes.length > 0){ %>
+           <% Notes.forEach((file) => { %>
           <div
             class="w-72 bg-white/60 backdrop-blur-md rounded-2xl p-5 shadow-lg border border-pink-100 hover:translate-y-[-5px] transition-all duration-300"
           >
-            <h3 class="text-2xl font-bold text-purple-900"><%= file %></h3>
+            <h3 class="text-2xl font-bold text-purple-900"><%= file.title %></h3>
 
             <p class="text-purple-700 mt-2 line-clamp-3">
               Complete backend learning and revise Express routing concepts.
             </p>
             <div class=" flex items-center">
                <a
-              href="/file/<%= file%>"
+              href="/file/<%= file._id%>"
               class="inline-block mt-4 text-pink-600 font-semibold hover:text-fuchsia-700"
             >
               Read More →
             </a>
             <a
-              href="/edit/<%= file%>"
+              href="/edit/<%= file._id%>"
               class="inline-block mt-4 ml-4 text-red-500 font-semibold hover:text-red-700"
               >
             Edit
