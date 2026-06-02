@@ -2,7 +2,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const fs = require('fs');
+const dotenv = require('dotenv');
+dotenv.config();
 const Note = require('./models/Notes');
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
