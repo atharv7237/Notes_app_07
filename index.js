@@ -6,6 +6,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 const Note = require('./models/Notes');
 
+const PORT = process.env.PORT || 3000;
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
