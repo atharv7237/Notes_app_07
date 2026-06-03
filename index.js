@@ -3,9 +3,11 @@ const app = express();
 const path = require('path');
 const fs = require('fs');
 const dotenv = require('dotenv');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 dotenv.config();
 const Note = require('./models/Notes');
-
+const User = require('./models/User');
 const PORT = process.env.PORT || 3000;
 
 
@@ -15,10 +17,12 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Home route to display all files if already files are present in the directory
-app.get('/', async (req, res) => {
-    let notes = await Note.find();
+app.get('/', (req, res) => {
     try {
-        res.render('index', { Notes: notes });
+
+        res.render('LandingPage');
+
+        // res.render('index', { Notes: notes });
     }
     catch {
         res.status(500).send('Error rendering page');
@@ -35,15 +39,84 @@ app.get('/', async (req, res) => {
     // });
 });
 
+//Registering the new User 
+app.get('/register', (req, res) => {
+    res.render('Registration');
+})
+
+//To Register the new user and save the data in the database
+app.post('/register', async (req, res) => {
+    bcrypt.hash(req.body.password, 10, async (err, hash) => {
+        if(err) console.error('Something Went Wrong :', err);
+        else{
+        let newUser = await User.create({
+            name: req.body.name,
+            email: req.body.email,
+            password:hash
+        })
+        res.redirect('/loginPage');
+    }
+    })
+    
+})
+
+//to redirect to the login page when the user clicks on the login button
+app.get('/loginPage', (req, res) => {
+    res.render('Login');
+})
+
+app.post('/login', async (req, res) => {
+    let session = req.cookies
+
+    if(session){
+        jwt.verify(session, process.env.SECRET_KEY, async (err, decoded) => {
+            console.log(decoded);
+        })
+    }
+    else{
+        console.log('No session found');
+        let findUser = await User.findOne({email:req.body.email});
+    if( !findUser) res.send('Something Went Wrong');
+    else{
+        bcrypt.compare(req.body.password, findUser.password, async(err, result) => {
+            if(result === false) res.send('Something Went Wrong');
+            else{
+           
+            
+            res.redirect(`/indexpage/${findUser._id}`);
+            // console.log(findnotes);
+            }
+        })
+    }
+    console.log(findUser);
+    }
+
+    
+})
+
+app.get('/indexpage/:userid', async (req, res) => {
+    let findUser = await User.findOne({_id:req.params.userid});
+    let findnotes = await Note.find({user:findUser._id});
+    let filternotes = findnotes.filter(note => note.user.toString() == findUser._id.toString());
+res.render('index',{ Notes: filternotes, user: findUser._id});
+})
+
 //creating a file with the title and description provided by the user
 app.post('/create', async (req, res) => {
     try {
-        await Note.create({
+        let createnote = await Note.create({
             title: req.body.title,
-            description: req.body.description
+            description: req.body.description,
+            user: req.body.user
         })
 
-        res.redirect('/');
+        let user = await User.findOne({_id:createnote.user})
+        user.notes.push(createnote._id);
+        user.save();
+
+        console.log(user._id);
+        res.redirect(`/indexpage/${user._id}`);
+      
     }
     catch {
         res.status(500).send('Error creating note');
