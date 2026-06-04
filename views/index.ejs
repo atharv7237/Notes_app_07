@@ -9,124 +9,155 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
 
-  <body
-  class="min-h-screen bg-gradient-to-br from-pink-200 via-purple-200 to-fuchsia-300 relative"
->
-  <!-- Logout Button -->
+  <body class="min-h-screen bg-gradient-to-br from-pink-200 via-purple-200 to-fuchsia-300 relative overflow-x-hidden">
+
+  <!-- Decorative Blobs -->
+
+  <div class="fixed top-0 left-0 w-96 h-96 bg-pink-400/30 blur-3xl rounded-full"></div>
+  <div class="fixed bottom-0 right-0 w-96 h-96 bg-fuchsia-400/30 blur-3xl rounded-full"></div>
+
+  <!-- Logout -->
+
   <div class="absolute top-6 left-6 z-50">
     <a href="/logout">
       <button
-        class="bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:scale-105 transition-all duration-300 text-white px-6 py-3 rounded-xl font-semibold shadow-lg"
+        class="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:scale-105 transition-all duration-300 text-white px-6 py-3 rounded-2xl font-semibold shadow-xl"
       >
-        Log Out
+        Logout
       </button>
     </a>
   </div>
 
-  <!-- Main Wrapper -->
-  <div class="flex items-center justify-center min-h-screen p-6">
-    <div
-      class="w-full max-w-6xl bg-white/50 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 p-10"
-    >
-      <!-- Heading -->
-      <div class="text-center mb-10">
-        <h1 class="text-5xl font-bold text-purple-900">
-          Notes Creator
-        </h1>
-        <p class="text-purple-700 mt-3 text-lg">
-          Create soft beautiful notes with Hydrangea vibes 🌸
-        </p>
-      </div>
+  <div class="max-w-7xl mx-auto px-6 py-10">
 
-      <!-- Form -->
-      <form action="/create" method="POST" class="space-y-5">
-        <input
-          type="text"
-          name="title"
-          placeholder="Enter note title..."
-          class="w-full px-5 py-4 rounded-2xl bg-white/70 border border-pink-200 outline-none focus:ring-4 focus:ring-pink-300 text-purple-900 placeholder-purple-400 text-lg"
-        />
+<!-- Hero Header -->
+<div class="text-center mb-12">
+  <h1
+    class="text-6xl font-extrabold bg-gradient-to-r from-purple-900 via-fuchsia-700 to-pink-500 bg-clip-text text-transparent"
+  >
+    Notes Creator
+  </h1>
 
-        <input
-          type="text"
-          name="user"
-          value="<%= user %>"
-          hidden
-        />
+  <p class="text-purple-700 text-lg mt-4">
+    Organize your thoughts, ideas and memories beautifully 🌸
+  </p>
+</div>
 
-        <textarea
-          name="description"
-          rows="5"
-          placeholder="Write your note description..."
-          class="w-full px-5 py-4 rounded-2xl bg-white/70 border border-pink-200 outline-none resize-none focus:ring-4 focus:ring-fuchsia-300 text-purple-900 placeholder-purple-400 text-lg"
-        ></textarea>
+<!-- Form Card -->
+<div
+  class="bg-white/40 backdrop-blur-xl border border-white/50 rounded-3xl shadow-2xl p-8 mb-12"
+>
 
-        <div class="flex justify-center">
-          <button
-            type="submit"
-            class="bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:scale-105 transition-all duration-300 text-white px-10 py-3 rounded-2xl text-lg font-semibold shadow-lg"
-          >
-            Create Note
-          </button>
-        </div>
-      </form>
+  <form action="/create" method="POST" class="space-y-5">
 
-      <!-- Notes Section -->
-      <div class="mt-14">
-        <h2 class="text-3xl font-bold text-purple-900 mb-8 text-center">
-          Your Notes
-        </h2>
+    <input
+      type="text"
+      name="title"
+      placeholder="✨ Enter note title..."
+      class="w-full px-6 py-4 rounded-2xl bg-white/70 border border-pink-200 outline-none focus:ring-4 focus:ring-pink-300 text-purple-900 placeholder-purple-400 text-lg"
+    />
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <input
+      type="text"
+      name="user"
+      value="<%= user %>"
+      hidden
+    />
 
-          <% if (Notes.length > 0){ %>
-          <% Notes.forEach((file) => { %>
+    <textarea
+      name="description"
+      rows="5"
+      placeholder="💭 Write your thoughts..."
+      class="w-full px-6 py-4 rounded-2xl bg-white/70 border border-pink-200 outline-none resize-none focus:ring-4 focus:ring-fuchsia-300 text-purple-900 placeholder-purple-400 text-lg"
+    ></textarea>
 
-          <div
-            class="bg-white/60 backdrop-blur-md rounded-2xl p-5 shadow-lg border border-pink-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300"
-          >
-            <h3 class="text-2xl font-bold text-purple-900">
-              <%= file.title %>
-            </h3>
-
-            <p class="text-purple-700 mt-3">
-              <%= file.description.substring(0,100) %>...
-            </p>
-
-            <div class="flex items-center gap-4 mt-5">
-              <a
-                href="/file/<%= file._id %>"
-                class="text-pink-600 font-semibold hover:text-fuchsia-700"
-              >
-                Read More →
-              </a>
-
-              <a
-                href="/edit/<%= file._id %>"
-                class="text-red-500 font-semibold hover:text-red-700"
-              >
-                Edit
-              </a>
-            </div>
-          </div>
-
-          <% }) %>
-
-          <% } else { %>
-
-          <div
-            class="col-span-full bg-white/60 backdrop-blur-md rounded-2xl p-8 shadow-lg border border-pink-100 text-center"
-          >
-            <p class="text-purple-700 text-lg">
-              No notes available. Create your first note 🌸
-            </p>
-          </div>
-
-          <% } %>
-
-        </div>
-      </div>
+    <div class="flex justify-center">
+      <button
+        type="submit"
+        class="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:scale-105 hover:shadow-2xl transition-all duration-300 text-white px-12 py-4 rounded-2xl text-lg font-bold shadow-lg"
+      >
+        ➕ Create Note
+      </button>
     </div>
+
+  </form>
+</div>
+
+<!-- Notes Section -->
+<div>
+
+  <div class="flex items-center justify-center mb-10">
+    <h2 class="text-4xl font-bold text-purple-900">
+      Your Notes ✨
+    </h2>
   </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <% if (Notes.length > 0){ %>
+    <% Notes.forEach((file) => { %>
+
+    <div
+      class="bg-white/50 backdrop-blur-xl rounded-3xl p-6 shadow-xl border border-white/40 hover:-translate-y-3 hover:shadow-2xl transition-all duration-300"
+    >
+
+      <h3 class="text-2xl font-bold text-purple-900 mb-3">
+        <%= file.title %>
+      </h3>
+
+      <p class="text-purple-700 leading-relaxed">
+        <%= file.description.substring(0,100) %>...
+      </p>
+
+      <div class="flex items-center gap-5 mt-6">
+
+        <a
+          href="/file/<%= file._id %>"
+          class="text-pink-600 font-semibold hover:text-fuchsia-700"
+        >
+          Read More →
+        </a>
+
+        <a
+          href="/edit/<%= file._id %>"
+          class="text-red-500 font-semibold hover:text-red-700"
+        >
+          Edit
+        </a>
+
+         <a
+          href="/delete/<%= file._id %>"
+          class="text-red-500 font-semibold hover:text-red-700"
+        >
+          Delete
+        </a>
+      </div>
+
+    </div>
+
+    <% }) %>
+
+    <% } else { %>
+
+    <div
+      class="col-span-full bg-white/50 backdrop-blur-xl rounded-3xl p-10 shadow-xl border border-white/40 text-center"
+    >
+      <h3 class="text-2xl font-bold text-purple-900">
+        No Notes Yet 🌸
+      </h3>
+
+      <p class="text-purple-700 mt-3">
+        Create your first beautiful note and start organizing your ideas.
+      </p>
+    </div>
+
+    <% } %>
+
+  </div>
+
+</div>
+
+  </div>
+
 </body>
 </html>
