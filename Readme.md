@@ -1,66 +1,111 @@
 # Notes Creator App
+https://notes-app-07.onrender.com/
 
-A beginner full-stack backend practice project built using Node.js, Express.js, EJS, and the File System module.
+A full-stack Notes Management Application built using Node.js, Express.js, MongoDB, Mongoose, EJS, JWT Authentication, and Tailwind CSS.
 
-This project allows users to create, read, and rename notes dynamically using text files as storage.
-
----
-
-# Features
-
-* Create notes with title and description
-* Store notes as `.txt` files
-* Display all existing notes dynamically
-* Read complete note content
-* Rename existing notes
-* Dynamic routing using Express
-* EJS templating for dynamic frontend rendering
-* Tailwind CSS based UI
-* Static file serving using Express
+The application allows users to register, log in securely, create personal notes, edit existing notes, read note details, and delete notes. Each user can access only their own notes through authentication and protected routes.
 
 ---
 
-# Tech Stack
+## Features
+
+### Authentication
+
+* User Registration
+* User Login
+* Password Hashing using bcrypt
+* JWT-based Authentication
+* Protected Routes
+* Logout Functionality
+
+### Notes Management
+
+* Create Notes
+* View All Personal Notes
+* Read Individual Notes
+* Edit Existing Notes
+* Delete Notes
+* User-Specific Notes Storage
+
+### Deployment
+
+* MongoDB Atlas Database
+* Render Deployment
+* GitHub Version Control
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* EJS
+* Tailwind CSS
+
+### Backend
 
 * Node.js
 * Express.js
-* EJS
-* Tailwind CSS
-* File System Module (`fs`)
-* Path Module (`path`)
+
+### Database
+
+* MongoDB Atlas
+* Mongoose ODM
+
+### Authentication
+
+* JWT (JSON Web Token)
+* bcrypt
+
+### Deployment & Tools
+
+* Git
+* GitHub
+* Render
 
 ---
 
-# Concepts Practiced
+## Concepts Practiced
 
-This project helped in understanding:
+This project helped me understand:
 
-* Express routing
+* Express Routing
 * Middleware
-* Form handling
-* `req.body`
-* `req.params`
-* Dynamic routing
-* EJS templating
-* Static file serving
-* CRUD-like operations
-* File handling using `fs`
-* Request-response cycle
+* Authentication & Authorization
+* JWT Token Generation & Verification
+* Password Hashing with bcrypt
+* MongoDB CRUD Operations
+* Database Relationships & Referencing
+* Mongoose Models & Schemas
+* Protected Routes
+* Form Handling
+* Request & Response Cycle
+* Cookie Handling
+* Deployment using Render
+* Git & GitHub Workflow
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```text
 project/
 │
-├── files/              # Stores all notes as txt files
-├── public/             # Static files (CSS, images, JS)
-├── views/              # EJS templates
+├── models/
+│   ├── User.js
+│   └── Notes.js
+│
+├── views/
+│   ├── LandingPage.ejs
+│   ├── Registration.ejs
+│   ├── Login.ejs
 │   ├── index.ejs
 │   ├── show.ejs
 │   └── edit.ejs
 │
+├── public/
+│
+├── .env
 ├── app.js
 ├── package.json
 └── README.md
@@ -68,39 +113,53 @@ project/
 
 ---
 
-# Routes
+## Routes
 
-| Route             | Method | Purpose           |
-| ----------------- | ------ | ----------------- |
-| `/`               | GET    | Display all notes |
-| `/create`         | POST   | Create new note   |
-| `/file/:filename` | GET    | Read note content |
-| `/edit/:filename` | GET    | Open edit page    |
-| `/edit`           | POST   | Rename note       |
+| Route              | Method | Purpose            |
+| ------------------ | ------ | ------------------ |
+| /                  | GET    | Landing Page       |
+| /register          | GET    | Registration Page  |
+| /register          | POST   | Register New User  |
+| /loginPage         | GET    | Login Page         |
+| /login             | POST   | Authenticate User  |
+| /logout            | GET    | Logout User        |
+| /indexpage/:userid | GET    | Display User Notes |
+| /create            | POST   | Create New Note    |
+| /file/:id          | GET    | Read Note          |
+| /edit/:id          | GET    | Edit Page          |
+| /edit              | POST   | Update Note        |
+| /delete/:id        | GET    | Delete Note        |
 
 ---
 
-# Installation
+## Installation
 
-Clone the repository:
+### Clone Repository
 
 ```bash
-git clone <your-repo-link>
+git clone https://github.com/atharv7237/Notes_app_07.git
 ```
 
-Install dependencies:
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-Start the server:
+### Create .env File
+
+```env
+MONGO_URI=your_mongodb_connection_string
+SECRET_KEY=your_secret_key
+```
+
+### Start Server
 
 ```bash
 node app.js
 ```
 
-Open browser:
+### Open Browser
 
 ```text
 http://localhost:3000
@@ -108,18 +167,63 @@ http://localhost:3000
 
 ---
 
-# Future Improvements
+## Screenshots
 
-* Delete notes functionality
-* Edit note descriptions
-* MongoDB integration
-* Authentication
-* Better UI animations
-* Search functionality
-* Proper MVC architecture
+### Landing Page
+
+![Landing page](<public/images/Screenshot 2026-06-04 221314.png>)
+
+### Registration Page
+
+![Registration](<public/images/Screenshot 2026-06-04 221332.png>)
+
+### Login Page
+
+![Login](<public/images/Screenshot 2026-06-04 221348.png>)
+
+### Notes Dashboard
+
+![Notes](<public/images/Screenshot 2026-06-04 221421.png>)
+
+### Read Note
+
+![Read](<public/images/Screenshot 2026-06-04 221516.png>)
+
+### Edit Note
+
+![Edit](<public/images/Screenshot 2026-06-04 221459.png>)
 
 ---
 
-# Learning Outcome
+## Future Improvements
 
-This project was built as part of backend learning practice to understand how frontend and backend interact together using Express.js and EJS.
+* Profile Pictures
+* User Profile Page
+* Authorization Checks
+* Search Notes
+* Tags & Categories
+* Rich Text Editor
+* Dark Mode
+* Pagination
+* REST API Version
+* MVC Architecture Refactor
+
+---
+
+## Learning Outcome
+
+This project started as a simple file-system based notes application and gradually evolved into a full-stack web application with authentication, database integration, deployment, and user-specific data management.
+
+Through this project, I gained practical experience with Express.js, MongoDB, JWT Authentication, bcrypt, deployment workflows, GitHub version control, and building complete CRUD applications from scratch.
+
+## Project Journey
+
+This project holds special significance for me because it is the first complete web application that I designed, built, debugged, and deployed largely on my own while learning backend development.
+
+The project began as a simple file-system based Notes application where notes were stored as text files. As I continued learning, I gradually expanded it by integrating MongoDB Atlas, Mongoose, user authentication with JWT, password hashing using bcrypt, protected routes, and deployment on Render.
+
+Since this project was developed during my learning phase, I intentionally focused on understanding core backend concepts and implementing features step-by-step rather than following every industry-standard practice from the beginning. For example, the application currently does not use a complete MVC architecture and some areas can be further refactored as my knowledge grows.
+
+Rather than being a finished product, this project represents my learning journey from basic CRUD operations to building and deploying a full-stack application with authentication and database integration.
+
+It serves as a milestone in my development journey and demonstrates my ability to learn new technologies, solve real-world problems, debug issues independently, and continuously improve my codebase over time.
