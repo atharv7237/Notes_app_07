@@ -8,7 +8,10 @@ mongoose.connect(process.env.MONGO_URI)//used to connect to the database using t
 
 const noteSchema = mongoose.Schema({
     title: String,
-    description: String
+    description: String,
+    user: [{ type: mongoose.Schema.Types.ObjectId,
+         ref: 'User' }
+    ]
 })
 
 module.exports = mongoose.model('Note', noteSchema);
